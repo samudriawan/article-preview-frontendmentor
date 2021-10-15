@@ -1,0 +1,278 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap');
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: $f-family;
+	font-size: $f-size;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	max-width: 1440px;
+	min-height: 100%;
+	background-color: $neutral-color;
+	@include flex(center, column);
+}
+
+.container {
+	position: relative;
+	width: 100%;
+	margin: auto;
+}
+
+// card style
+.card {
+	position: relative;
+	max-width: 350px;
+	margin: auto;
+	border-radius: 0.7em;
+	background-color: white;
+	color: $primary-color;
+	overflow: hidden;
+	box-shadow: 2px 2px 20px rgba($primary-color, 0.2);
+	@include flex(center, column);
+
+	@include media {
+		max-width: 680px;
+		height: 270px;
+		flex-direction: row;
+		position: unset;
+	}
+
+	// start top image
+	&-img_top {
+		max-width: 100%;
+		height: 200px;
+		&::after {
+			position: absolute;
+			content: '';
+			width: 100%;
+			height: 230px;
+			background-image: url(../../images/drawers.jpg);
+			background-repeat: no-repeat;
+			background-size: cover;
+			transform: translateY(-1.4em);
+		}
+
+		@include media {
+			flex: 0 0 300px;
+
+			&::after {
+				width: 300px;
+				height: 300px;
+				background-image: url(../../images/drawers.jpg);
+				background-size: 370px 270px;
+				transform: translateY(0);
+			}
+		}
+	}
+	// end top image
+
+	// start card body
+	&-body {
+		width: 100%;
+		// padding: 2.5em 3.2em 2.5em 3.2em;
+
+		&_title {
+			font-size: 1.3rem;
+			padding-bottom: 1em;
+			padding: 0 2.5em;
+			padding-top: 3em;
+
+			@include media {
+				padding: 0 2em;
+				padding-top: 1.5em;
+			}
+		}
+
+		&_text {
+			padding: 1em 3.2em;
+			padding-bottom: 1em;
+			line-height: 1.5;
+			color: $secondary-color;
+
+			@include media {
+				padding-left: 2.5em;
+				padding-right: 3em;
+				padding-bottom: 0;
+			}
+		}
+	}
+	// end card body
+
+	//start card footer
+	&-footer {
+		position: relative;
+		width: 100%;
+		height: 70px;
+		margin-top: 1em;
+		padding: 0 3.2em;
+		@include flex(space-around, row);
+		@include transition();
+
+		@include media {
+			position: unset;
+			margin-top: 0;
+			padding-right: 3.5em;
+			padding-left: 2.5em;
+			// padding-bottom: 1em;
+		}
+
+		// start card footer default
+		&-default {
+			position: relative;
+			z-index: 0;
+			width: 100%;
+			height: 70px;
+			@include flex();
+			@include transition(z-index);
+
+			@include media {
+				// margin-bottom: 2em;
+			}
+
+			&_img {
+				width: 40px;
+				height: 40px;
+				margin: auto 0;
+				border-radius: 50%;
+			}
+
+			&_info {
+				padding-left: 1em;
+				margin: auto 0;
+				// transform: translate(-1.5em, 0.35em);
+
+				h2 {
+					padding-bottom: 0.2em;
+				}
+				p {
+					color: $tertiary-color;
+				}
+			}
+			&.hidden {
+				// display: none;
+				// visibility: hidden;
+				z-index: -1;
+
+				@include media {
+					z-index: inherit;
+				}
+			}
+		}
+		// end card footer default
+
+		// start card button
+		&_button {
+			display: block;
+			z-index: 2;
+			width: 38px;
+			height: 33px;
+			margin: auto 0;
+			border-radius: 50%;
+			border: none;
+			color: $primary-color;
+			background-color: $neutral-color;
+			cursor: pointer;
+			@include transition();
+
+			&.active {
+				color: $neutral-color;
+				background-color: $secondary-color;
+			}
+		}
+		// end card button
+
+		// share link shown when button clicked
+		&-share {
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 70px;
+			padding-left: 3.2em;
+			@include flex();
+			@include transition();
+			z-index: 0;
+
+			@include media {
+				border-radius: 0.7em;
+				transform: translate(6.7em, -4.5em);
+				background-color: $primary-color;
+				width: 260px;
+				height: 50px;
+				padding-left: 3em;
+				margin-right: -100px;
+				&::after {
+					position: absolute;
+					content: '';
+					top: 100%;
+					bottom: 0;
+					width: 20px;
+					height: 20px;
+					transform: translateX(6em);
+					clip-path: polygon(50% 60%, 0 0, 100% 0);
+					background-color: $primary-color;
+					box-shadow: 0 5px 20px rgba($primary-color, 0.3);
+				}
+			}
+
+			p {
+				margin: auto 0;
+				text-transform: uppercase;
+				color: $tertiary-color;
+				letter-spacing: 5px;
+			}
+
+			ul {
+				list-style-type: none;
+				padding-left: 1em;
+				margin: auto 0;
+
+				li {
+					display: inline-block;
+					padding: 0 0.5em;
+
+					a {
+						font-size: 1.2rem;
+						text-decoration: none;
+						color: white;
+					}
+				}
+			}
+
+			&.hidden {
+				z-index: -99999;
+				display: none;
+			}
+		}
+
+		// give card footer bg color when button clicked
+		&.show-menu {
+			background-color: $primary-color;
+
+			@include media {
+				background-color: white;
+			}
+		}
+	}
+	// end card footer
+}
+
+.attribution {
+	margin-top: auto;
+	p {
+		text-align: center;
+		font-size: 11px;
+	}
+	a {
+		font-size: 11px;
+		color: hsl(228, 45%, 44%);
+	}
+}
